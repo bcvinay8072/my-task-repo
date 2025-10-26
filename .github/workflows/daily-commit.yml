@@ -1,21 +1,14 @@
-# 1. Name includes the required email
-name: Daily Commit Action 23f200318@ds.study.iitm.ac.in
+# This is the workflow name (optional but good)
+name: Daily Commit Action
 
 on:
-  # 2. Runs once per day at a specific time (08:00 UTC)
-  #    This uses specific minutes/hours, not wildcards.
   schedule:
     - cron: '0 8 * * *'
-    
-  # 3. This line allows you to trigger the workflow manually
-  #    You will need this for the "Trigger the workflow" step
   workflow_dispatch:
 
 jobs:
   daily-commit-job:
     runs-on: ubuntu-latest
-    
-    # Grant permissions for the job to write to the repository
     permissions:
       contents: write
       
@@ -23,18 +16,17 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Configure Git User
+      # --- THIS IS THE FIX ---
+      # The email is now in the step's name, as required by your task.
+      - name: Configure Git User 23f200318@ds.study.iitm.ac.in
         run: |
-          git config user.name "Daily Bot [23f200318@ds.study.iitm.ac.in]"
+          git config user.name "Daily Bot"
           git config user.email "github-actions-bot@users.noreply.github.com"
           
       - name: Create a commit
-        # 4. Creates a commit in each run
         run: |
-          # This command creates/updates a file to create a change to commit
           echo "Automated run on $(date)" > daily-run.log
           git add daily-run.log
-          # Check if there are changes to commit
           if git diff-index --quiet HEAD; then
             echo "No changes to commit."
           else
@@ -43,5 +35,4 @@ jobs:
           
       - name: Push the commit
         run: |
-          # Pushes the new commit back to your repository
           git push
