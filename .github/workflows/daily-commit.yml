@@ -18,7 +18,7 @@ jobs:
 
       # --- THIS IS THE FIX ---
       # The email is now in the step's name, as required by your task.
-      - name: Configure Git User 23f200318@ds.study.iitm.ac.in
+      - name: Configure Git User 23f2003186@ds.study.iitm.ac.in
         run: |
           git config user.name "Daily Bot"
           git config user.email "github-actions-bot@users.noreply.github.com"
