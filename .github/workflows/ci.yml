@@ -1,0 +1,23 @@
+name: CI Workflow
+
+# This workflow runs on any push or pull request to the main branch
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  # A single job named 'build'
+  build:
+    # It will run on the latest Ubuntu version
+    runs-on: ubuntu-latest
+    
+    steps:
+      # This step checks out your repository's code
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # This step just prints a message and will always succeed
+      - name: Run a simple command
+        run: echo "Workflow ran successfully!"
